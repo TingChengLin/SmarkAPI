@@ -16,6 +16,7 @@ GrabItApi::Application.routes.draw do
   #   resources :products
 
   resources :welcome
+  resources :users
 
   resources :bookmarks do
     collection do
