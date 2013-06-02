@@ -3,7 +3,7 @@ development:
     encoding: utf8
     reconnect: true
     host: grabit.c4kx7jpum9uh.ap-northeast-1.rds.amazonaws.com
-    database: GrabIt
+    database: Smark
     pool: 2
     username: grab_it
     password: "zxcvbnm,"
@@ -15,7 +15,7 @@ production:
     encoding: utf8
     reconnect: true
     host: grabit.c4kx7jpum9uh.ap-northeast-1.rds.amazonaws.com
-    database: GrabIt
+    database: Smark
     pool: 2
     username: grab_it
     password: "zxcvbnm,"
