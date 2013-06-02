@@ -17,6 +17,12 @@ class Bookmark < ActiveRecord::Base
     if !bookmark
       bookmark = Bookmark.create(bookmark_attributes)
     end
+    if !bookmark.collect_count
+      bookmark.collect_count = 1
+    else
+      bookmark.collect_count += 1
+    end
+    bookmark.save
 
     attributes["tags"].each do |t|
       tag = Tag.find_by_name(t)
