@@ -46,14 +46,21 @@ class BookmarksController < ApplicationController
 
   def elect
     bookmark = Bookmark.find(params[:bookmark_id])
-    if params[:vote] == 1 || "-1"
-      bookmark.vote_up += 1
-    else params[:vote] == -1 || "-1"
-      bookmark.vote_down += 1
+    if Vote.where(params).first
+      render :json => { :code => 201 }
+    else
+      if params[:vote] == 1 || "-1"
+        bookmark.vote_up += 1
+      else params[:vote] == -1 || "-1"
+        bookmark.vote_down += 1
+      end
+      bookmark.save
+      Vote.create(vote_params)
+
+      render :json => {:code => 200,
+                       :vote_up => bookmark.vote_up,
+                       :vote_down => bookmark.vote_down}
     end
-    bookmark.save
-    render :json => {:vote_up => bookmark.vote_up,
-                     :vote_down => bookmark.vote_down}
   end
 
 private
@@ -61,4 +68,7 @@ private
     params.slice("url", "title", "description", "tags")
   end
 
+  def vote_params
+    params.slice("bookmark_id", "user_id", "vote")
+  end
 end
