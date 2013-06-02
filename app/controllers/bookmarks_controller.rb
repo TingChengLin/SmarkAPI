@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
 
   def create
     bookmark = Bookmark.find_or_create(bookmark_params)
-    user = User.find_by_uid(params[:uid])
+    user = User.find_by_id(params[:id])
 
     if user.bookmarks.include? bookmark
       render :json => { :code => 201 }
