@@ -17,6 +17,18 @@ GrabItApi::Application.routes.draw do
 
   resources :welcome
 
+  resources :bookmarks do
+    collection do
+      get 'search'
+    end
+  end
+
+  resources :tags do
+    collection do
+      get 'search'
+    end
+  end
+
   # Sample resource route with options:
   #   resources :products do
   #     member do

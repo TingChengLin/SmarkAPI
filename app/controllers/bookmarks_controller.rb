@@ -1,6 +1,18 @@
 class BookmarksController < ApplicationController
+  def create
+    Bookmark.create(bookmark_params)
+  end
+
   def search
-    Bookmark.search(params[:query])
+    render :json => {
+                      :code => 200,
+                      :bookmarks => Bookmark.search(params[:query])
+                    }
+  end
+
+private
+  def bookmark_params
+    params.slice("url", "title", "description")
   end
 
 end
