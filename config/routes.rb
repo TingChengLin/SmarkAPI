@@ -22,6 +22,7 @@ GrabItApi::Application.routes.draw do
       get 'search'
       get 'top'
       post 'elect'
+      post 'add'
     end
   end
 
