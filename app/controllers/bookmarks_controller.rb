@@ -53,9 +53,9 @@ class BookmarksController < ApplicationController
                         :vote_up => bookmark.vote_up,
                         :vote_down => bookmark.vote_down }
     else
-      if params[:vote] == 1 || "-1"
+      if (params[:vote] == 1) || (params[:vote] == "1")
         bookmark.vote_up += 1
-      else params[:vote] == -1 || "-1"
+      else (params[:vote] == -1) || (params[:vote] == "-1")
         bookmark.vote_down += 1
       end
       bookmark.save
