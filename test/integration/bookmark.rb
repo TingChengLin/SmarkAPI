@@ -41,13 +41,16 @@ curl -i -X POST -d 'vote=1&bookmark_id=1&user_id=1' http://localhost:3000/bookma
 
 
 
-uri = "http://api.stackoverflow.com/1.1/tags?pagesize=100&page="
-
 
 require 'open-uri'
 
-f = open("#{uri}#{}")
-stack_json = f.read
-
-
-http://api.stackoverflow.com/1.1/tags?pagesize=100&page=1
+uri = "http://api.stackoverflow.com/1.1/tags?pagesize=100&page="
+for i in (1..333)
+  f = open("#{uri}#{i}")
+  stack_json = f.read
+  stack_hash = JSON.parse(stack_json)
+  tags = stack_hash["tags"].map &lambda { |t| t["name"]}
+  tags.each do |tag|
+    Tag.create(:name => tag)
+  end
+end

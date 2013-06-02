@@ -8,7 +8,7 @@ class BookmarksController < ApplicationController
       render :json => { :code => 201 }
     else
       user.bookmarks << bookmark
-      bookmark.collect_count += 1
+      #bookmark.collect_count += 1
       bookmark.save
       render :json => { :code => 200 }
     end
