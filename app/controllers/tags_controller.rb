@@ -9,7 +9,7 @@ class TagsController < ApplicationController
   def top
     render :json => {
       :code => 200,
-      :bookmarks => (Tag.all.map &lambda { |t| t.profile })
+      :tags => (Tag.all.map &lambda { |t| t.profile })
     }
   end
 
