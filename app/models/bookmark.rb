@@ -43,8 +43,9 @@ class Bookmark < ActiveRecord::Base
   end
 
   def profile
-    self_attr = self.attributes.slice("title", "url", "description", "collect_count", "vote_up", "vote_down")
+    self_attr = self.attributes.slice("title", "url", "description", "collect_count")
     self_attr["tags"] = self.tags.map &lambda { |t| { :id => t.id, :name => t.name } }
+    self_attr["votes"] = self.vote_up - self.vote_down
     self_attr
   end
 
