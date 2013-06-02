@@ -46,8 +46,12 @@ class BookmarksController < ApplicationController
 
   def elect
     bookmark = Bookmark.find(params[:bookmark_id])
+    user = User.find(params[:user_id])
+
     if Vote.where(params).first
-      render :json => { :code => 201 }
+      render :json => { :code => 201,
+                        :vote_up => bookmark.vote_up,
+                        :vote_down => bookmark.vote_down }
     else
       if params[:vote] == 1 || "-1"
         bookmark.vote_up += 1
