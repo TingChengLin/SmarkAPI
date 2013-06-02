@@ -4,11 +4,14 @@ class BookmarksController < ApplicationController
     bookmark = Bookmark.find_or_create(bookmark_params)
     user = User.find_by_uid(params[:uid])
 
-    if user
-      user.collect(bookmark)
+    if user.bookmarks.include? bookmark
+      render :json => { :code => 201 }
+    else
+      self.bookmarks << bookmark
+      bookmark.collect_count += 1
+      bookmark.save
+      render :json => { :code => 200 }
     end
-
-    render :json => { :code => 200 }
   end
 
   def search

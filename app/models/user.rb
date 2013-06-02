@@ -13,11 +13,4 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :provider, :uid, :name
 
-  def collect(bookmark)
-
-    if !(self.bookmarks.include? bookmark)
-      self.bookmarks << bookmark
-    end
-  end
-
 end
