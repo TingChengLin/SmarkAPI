@@ -8,12 +8,12 @@ class CreateBookmarks < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :bookmark_tags, :id => false do |t|
+    create_table :bookmarks_tags, :id => false do |t|
       t.integer :bookmark_id
       t.integer :tag_id
     end
 
-    create_table :user_bookmarks, :id => false do |t|
+    create_table :bookmarks_users, :id => false do |t|
       t.integer :user_id
       t.integer :bookmark_id
     end
