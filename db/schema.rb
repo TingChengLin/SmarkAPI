@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602074027) do
+ActiveRecord::Schema.define(:version => 20130602074949) do
 
   create_table "bookmarks", :force => true do |t|
     t.text     "url"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20130602074027) do
     t.string   "validation_code"
     t.integer  "following_count"
     t.integer  "follower_count"
+    t.string   "img"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
