@@ -6,7 +6,7 @@ class Bookmark < ActiveRecord::Base
   attr_accessible :url, :title, :description
 
   def self.find_or_create(attributes)
-    if !attributes["title"]
+    if attributes["title"].blank?
       url = attributes["url"]
       attributes["title"] = URI.parse(url).host
     end
