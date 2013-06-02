@@ -19,7 +19,7 @@ class BookmarksController < ApplicationController
   def top
     render :json => {
       :code => 200,
-      :bookmarks => Bookmark.all.map &lambda { |b| b.profile }
+      :bookmarks => (Bookmark.all.map &lambda { |b| b.profile })
     }
   end
 
