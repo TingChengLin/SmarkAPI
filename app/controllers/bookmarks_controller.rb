@@ -14,6 +14,20 @@ class BookmarksController < ApplicationController
     end
   end
 
+  def add
+    bookmark = Bookmark.find(params[:bookmark_id])
+    user = User.find(params[:user_id])
+
+    if user.bookmarks.include? bookmark
+      render :json => { :code => 201 }
+    else
+      self.bookmarks << bookmark
+      bookmark.collect_count += 1
+      bookmark.save
+      render :json => { :code => 200 }
+    end
+  end
+
   def search
     render :json => {
                       #:code => 200,
@@ -22,7 +36,7 @@ class BookmarksController < ApplicationController
   end
 
   def top
-    bookmarks = Bookmark.page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    bookmarks = Bookmark.order(:collect_count).page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     #render :json => {
     #  :code => 200,
     #  :bookmarks => bookmarks
