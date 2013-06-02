@@ -59,6 +59,9 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.8.0)
     libv8 (3.11.8.17)
     mail (2.5.4)
@@ -148,6 +151,7 @@ DEPENDENCIES
   devise
   execjs
   jquery-rails
+  kaminari
   mysql2
   omniauth
   omniauth-facebook

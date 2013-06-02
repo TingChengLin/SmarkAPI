@@ -7,9 +7,10 @@ class TagsController < ApplicationController
   end
 
   def top
+    tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     render :json => {
       :code => 200,
-      :tags => (Tag.all.map &lambda { |t| t.profile })
+      :tags => tags
     }
   end
 

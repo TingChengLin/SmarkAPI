@@ -17,9 +17,10 @@ class BookmarksController < ApplicationController
   end
 
   def top
+    bookmarks = Bookmark.page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     render :json => {
       :code => 200,
-      :bookmarks => (Bookmark.all.map &lambda { |b| b.profile })
+      :bookmarks => bookmarks
     }
   end
 
