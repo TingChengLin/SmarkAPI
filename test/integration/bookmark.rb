@@ -33,3 +33,9 @@ res = Net::HTTP.post_form(uri, 'q' => ['ruby', 'perl'], 'max' => '50')
 puts res.body
 
 curl -i -X POST -d 'url=url&description=description&tags[]=aaa&tags[]=rails&uid=1' http://localhost:3000/bookmarks
+
+
+
+curl -i -X POST -d 'vote=1&bookmark_id=1' http://localhost:3000/bookmarks/elect
+
+
