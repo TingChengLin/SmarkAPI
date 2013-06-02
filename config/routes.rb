@@ -20,12 +20,14 @@ GrabItApi::Application.routes.draw do
   resources :bookmarks do
     collection do
       get 'search'
+      get 'top'
     end
   end
 
   resources :tags do
     collection do
       get 'search'
+      get 'top'
     end
   end
 

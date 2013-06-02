@@ -10,4 +10,9 @@ class Tag < ActiveRecord::Base
   def self.instance_search(query)
     self.search(query).map &lambda { |t| t.name }
   end
+
+  def profile
+    self.attributes.slice("name", "description")
+  end
+
 end

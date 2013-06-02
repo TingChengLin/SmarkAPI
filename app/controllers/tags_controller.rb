@@ -5,4 +5,12 @@ class TagsController < ApplicationController
                       :tags => Tag.instance_search(params[:query])
                     }
   end
+
+  def top
+    render :json => {
+      :code => 200,
+      :bookmarks => Tag.all.map &lambda { |b| t.profile }
+    }
+  end
+
 end
