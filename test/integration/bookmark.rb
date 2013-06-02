@@ -36,6 +36,5 @@ curl -i -X POST -d 'url=url&description=description&tags[]=aaa&tags[]=rails&uid=
 
 
 
-curl -i -X POST -d 'vote=1&bookmark_id=1' http://localhost:3000/bookmarks/elect
-
+curl -i -X POST -d 'vote=1&bookmark_id=1&user_id=1' http://localhost:3000/bookmarks/elect
 

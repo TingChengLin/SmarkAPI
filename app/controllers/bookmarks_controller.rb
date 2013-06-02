@@ -48,7 +48,7 @@ class BookmarksController < ApplicationController
     bookmark = Bookmark.find(params[:bookmark_id])
     user = User.find(params[:user_id])
 
-    if Vote.where(params).first
+    if Vote.where(vote_params).first
       render :json => { :code => 201,
                         :vote_up => bookmark.vote_up,
                         :vote_down => bookmark.vote_down }
