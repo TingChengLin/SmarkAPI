@@ -38,3 +38,16 @@ curl -i -X POST -d 'url=url&description=description&tags[]=aaa&tags[]=rails&uid=
 
 curl -i -X POST -d 'vote=1&bookmark_id=1&user_id=1' http://localhost:3000/bookmarks/elect
 
+
+
+
+uri = "http://api.stackoverflow.com/1.1/tags?pagesize=100&page="
+
+
+require 'open-uri'
+
+f = open("#{uri}#{}")
+stack_json = f.read
+
+
+http://api.stackoverflow.com/1.1/tags?pagesize=100&page=1
