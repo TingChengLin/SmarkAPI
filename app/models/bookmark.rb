@@ -1,3 +1,4 @@
+require 'uri'
 class Bookmark < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :tags
@@ -5,6 +6,11 @@ class Bookmark < ActiveRecord::Base
   attr_accessible :url, :title, :description
 
   def self.find_or_create(attributes)
+    if !attributes["title"]
+      url = attributes["url"]
+      attributes["title"] = URI.parse(url).host
+    end
+
     bookmark_attributes = attributes.slice("title", "url", "description")
 
     bookmark = Bookmark.where(bookmark_attributes).first
