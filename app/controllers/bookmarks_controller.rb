@@ -11,17 +11,18 @@ class BookmarksController < ApplicationController
 
   def search
     render :json => {
-                      :code => 200,
+                      #:code => 200,
                       :bookmarks => Bookmark.search(params[:query])
                     }
   end
 
   def top
     bookmarks = Bookmark.page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
-    render :json => {
-      :code => 200,
-      :bookmarks => bookmarks
-    }
+    #render :json => {
+    #  :code => 200,
+    #  :bookmarks => bookmarks
+    #}
+    render :json => bookmarks
   end
 
 private
