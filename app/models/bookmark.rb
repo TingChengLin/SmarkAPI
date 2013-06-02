@@ -4,6 +4,23 @@ class Bookmark < ActiveRecord::Base
 
   attr_accessible :url, :title, :description
 
+  def self.find_or_create(attributes)
+    bookmark_attributes = attributes.slice("title", "url", "description")
+
+    bookmark = Bookmark.where(bookmark_attributes).first
+    if !bookmark
+      bookmark = Bookmark.create(bookmark_attributes)
+    end
+
+    attributes["tags"].each do |t|
+      tag = Tag.find_by_name(t)
+      if tag && !(bookmark.tags.include? tag)
+        bookmark.tags << tag
+      end
+    end
+    bookmark
+  end
+
   def self.search(query)
     tags = Tag.search(query)
     bookmarks = []

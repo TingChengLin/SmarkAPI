@@ -1,9 +1,11 @@
 class BookmarksController < ApplicationController
+
   def create
-    bookmark = Bookmark.create(bookmark_params)
-    params[:tags].each do |t|
-      tag = Tag.find_by_name(t)
-      bookmark.tags << tag
+    bookmark = Bookmark.find_or_create(bookmark_params)
+    user = User.find_by_uid(params[:uid])
+
+    if user
+      user.collect(bookmark)
     end
 
     render :json => { :code => 200 }
@@ -26,7 +28,7 @@ class BookmarksController < ApplicationController
 
 private
   def bookmark_params
-    params.slice("url", "title", "description")
+    params.slice("url", "title", "description", "tags")
   end
 
 end

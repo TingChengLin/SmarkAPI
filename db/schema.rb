@@ -11,14 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602031911) do
+ActiveRecord::Schema.define(:version => 20130602051150) do
 
   create_table "bookmarks", :force => true do |t|
     t.text     "url"
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "collect_count"
+    t.integer  "vote_up"
+    t.integer  "vote_down"
   end
 
   create_table "bookmarks_tags", :id => false, :force => true do |t|
@@ -34,8 +37,9 @@ ActiveRecord::Schema.define(:version => 20130602031911) do
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "tag_with_count"
   end
 
   create_table "users", :force => true do |t|
@@ -56,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20130602031911) do
     t.string   "uid"
     t.string   "name"
     t.string   "validation_code"
+    t.integer  "following_count"
+    t.integer  "follower_count"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
