@@ -31,7 +31,9 @@ class Bookmark < ActiveRecord::Base
   end
 
   def profile
-    self.attributes.slice("title", "url", "description")
+    self_attr = self.attributes.slice("title", "url", "description")
+    self_attr["tags"] = self.tags.map &lambda { |t| t.name }
+    self_attr
   end
 
 end
