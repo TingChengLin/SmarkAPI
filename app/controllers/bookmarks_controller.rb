@@ -22,7 +22,7 @@ class BookmarksController < ApplicationController
   end
 
   def top
-    bookmarks = Bookmark.page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    bookmarks = Bookmark.order(:collect_count).page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     #render :json => {
     #  :code => 200,
     #  :bookmarks => bookmarks
