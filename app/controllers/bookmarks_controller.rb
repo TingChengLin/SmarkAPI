@@ -14,7 +14,7 @@ class BookmarksController < ApplicationController
     end
   end
 
-  def add
+  def collect
     bookmark = Bookmark.find(params[:bookmark_id])
     user = User.find(params[:user_id])
 

@@ -44,6 +44,10 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     erubis (2.7.0)
+    evernote-thrift (1.24.0)
+    evernote_oauth (0.2.1)
+      evernote-thrift
+      oauth (>= 0.4.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.7)
@@ -71,6 +75,7 @@ GEM
     multi_json (1.7.4)
     multipart-post (1.2.0)
     mysql2 (0.3.11)
+    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -80,8 +85,18 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-evernote (1.2.0)
+      evernote-thrift
+      multi_json (~> 1.0)
+      omniauth-oauth (~> 1.0)
     omniauth-facebook (1.4.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-github (1.1.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -149,12 +164,15 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
+  evernote_oauth
   execjs
   jquery-rails
   kaminari
   mysql2
   omniauth
+  omniauth-evernote
   omniauth-facebook
+  omniauth-github
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
   therubyracer

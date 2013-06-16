@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602083435) do
+ActiveRecord::Schema.define(:version => 20130612084609) do
+
+  create_table "authorizations", :force => true do |t|
+    t.string   "provider"
+    t.integer  "user_id"
+    t.string   "uid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "bookmarks", :force => true do |t|
     t.text     "url"
@@ -56,9 +64,6 @@ ActiveRecord::Schema.define(:version => 20130602083435) do
     t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
     t.string   "validation_code"
     t.integer  "following_count"
     t.integer  "follower_count"

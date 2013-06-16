@@ -20,8 +20,12 @@ class Bookmark < ActiveRecord::Base
     end
 
     attributes["tags"].each do |t|
+      logger.info("1: #{t}")
+
       tag = Tag.find_by_name(t)
       if tag && !(bookmark.tags.include? tag)
+        logger.info("2: #{tag}")
+
         bookmark.tags << tag
       end
     end

@@ -1,5 +1,12 @@
 GrabItApi::Application.routes.draw do
-  devise_for :users
+  # devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => "registrations",
+    :omniauth_callbacks => "users/omniauth_callbacks"
+  } do
+    get "logout" => "devise/sessions#destroy"
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -23,7 +30,7 @@ GrabItApi::Application.routes.draw do
       get 'search'
       get 'top'
       post 'elect'
-      post 'add'
+      post 'collect'
     end
   end
 
@@ -33,6 +40,25 @@ GrabItApi::Application.routes.draw do
       get 'top'
     end
   end
+
+  #resources :tokens, :only => [:create, :destroy]
+  resources :tokens do
+    collection do
+      get 'facebook'
+      get 'evernote'
+      get 'evernote_callback'
+    end
+  end
+
+  resources :authorizations do
+    collection do
+      get 'facebook'
+      get 'facebook_callback'
+      get 'evernote'
+      get 'evernote_callback'
+    end
+  end
+
 
   # Sample resource route with options:
   #   resources :products do
