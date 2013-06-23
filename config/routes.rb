@@ -2,6 +2,7 @@ GrabItApi::Application.routes.draw do
   # devise_for :users
   devise_for :users, :controllers => {
     :registrations => "registrations",
+    :sessions => :sessions,
     :omniauth_callbacks => "users/omniauth_callbacks"
   } do
     get "logout" => "devise/sessions#destroy"

@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
+  before_save :ensure_authentication_token
+
+
+
   def self.find_or_create_from_facebook_profile(profile)
     uid = profile["id"]
     email = profile["email"]
@@ -32,6 +36,14 @@ class User < ActiveRecord::Base
       @user
     else
       false
+    end
+  end
+
+  def bind_evernote(token)
+    if auth = authorizations.find_by_provider("evernote")
+      auth.update_attribute(:token, token)
+    else
+      self.authorizations << Authorization.new(:provider => "evernote", :token => token)
     end
   end
 

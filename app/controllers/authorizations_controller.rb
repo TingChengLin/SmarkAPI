@@ -18,6 +18,39 @@ HOST = "localhost"
 PORT = 3000
 
 class AuthorizationsController < ApplicationController
+  before_filter :token_auth!
+
+  def evernote
+    callback_url = url_for(:controller => "authorizations",
+                           :action => "evernote_callback",
+                           :host => "localhost",
+                           :port => 3000)
+    puts "callback_url: #{callback_url}"
+
+    # pass user param by uri param
+    callback_url = "#{callback_url}?state=#{@user.authentication_token}"
+
+    session[:request_token] = client.request_token(:oauth_callback => callback_url)
+    redirect_to session[:request_token].authorize_url
+  end
+
+  def evernote_callback
+    session[:oauth_verifier] = params['oauth_verifier']
+    #session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
+    session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
+    puts "params: #{params}"
+    puts "access_token: #{session[:access_token].to_json}"
+    #create_note
+
+    @user.bind_evernote(session[:access_token].token)
+
+    render :json => { :oauth_verifier => session[:oauth_verifier],
+                      :access_token => session[:access_token],
+                      :username => client.user_store.getUser(auth_token),
+                      :notebooks => client.note_store.listNotebooks(auth_token) }
+  end
+
+
   def facebook
     user_id = current_user.id
 
@@ -48,33 +81,6 @@ class AuthorizationsController < ApplicationController
     render :json => CGI::parse(@data.body)
   end
 
-  def evernote
-    callback_url = url_for(:controller => "authorizations",
-                           :action => "evernote_callback",
-                           :host => "localhost",
-                           :port => 3000)
-    puts "callback_url: #{callback_url}"
-
-    # pass user param by uri param
-    callback_url = "#{callback_url}?state=1234"
-
-    session[:request_token] = client.request_token(:oauth_callback => callback_url)
-    redirect_to session[:request_token].authorize_url
-  end
-
-  def evernote_callback
-    session[:oauth_verifier] = params['oauth_verifier']
-    #session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    puts "params: #{params}"
-
-    create_note
-
-    render :json => { :oauth_verifier => session[:oauth_verifier],
-                      :access_token => session[:access_token],
-                      :username => client.user_store.getUser(auth_token),
-                      :notebooks => client.note_store.listNotebooks(auth_token) }
-  end
 
 private
 
