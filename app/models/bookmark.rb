@@ -19,9 +19,18 @@ class Bookmark < ActiveRecord::Base
       bookmark = Bookmark.create(bookmark_attributes)
     end
 
-    attributes["tags"].each do |t|
-      tag = Tag.find_by_name(t)
+    logger.info("tags: #{attributes['tags']}")
+    tags = attributes["tags"].map &lambda { |t| Tag.find_by_name(t) }
+    logger.info("tags 2: #{tags}")
+    #attributes["tags"].each do |t|
+    tags.each do |tag|
+      logger.info("1: #{tag}")
+
+      #tag = Tag.find_by_name(t)
+      logger.info("2: #{tag}")
+      logger.info("3: #{tag && !(bookmark.tags.include? tag)}")
       if tag && !(bookmark.tags.include? tag)
+        logger.info("4: #{tag}")
         bookmark.tags << tag
       end
     end

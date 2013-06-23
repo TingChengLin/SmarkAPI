@@ -1,5 +1,15 @@
 class BookmarksController < ApplicationController
 
+  def index
+    bookmarks = Bookmark.order("id DESC").map &lambda { |b| b.profile }
+    #render :json => {
+    #  :code => 200,
+    #  :bookmarks => bookmarks
+    #}
+    logger.info("render: #{bookmarks.to_json}")
+    render :json => { :bookmarks => bookmarks }
+  end
+
   def create
     bookmark = Bookmark.find_or_create(bookmark_params)
     user = User.find_by_id(params[:id])
