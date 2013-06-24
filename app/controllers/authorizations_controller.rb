@@ -47,7 +47,8 @@ class AuthorizationsController < ApplicationController
     render :json => { :oauth_verifier => session[:oauth_verifier],
                       :access_token => session[:access_token],
                       :username => client.user_store.getUser(auth_token),
-                      :notebooks => client.note_store.listNotebooks(auth_token) }
+                      :notebooks => client.note_store.listNotebooks(auth_token) },
+           :callback => params[:callback]
   end
 
 
