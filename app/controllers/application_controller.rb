@@ -10,14 +10,16 @@ class ApplicationController < ActionController::Base
   def token_auth!
     auth_token = params[:auth_token] || params[:state]
     unless auth_token
-      render :json => { :error => "token not provided" }
+      render :json => { :error => "token not provided" },
+             :callback => params[:callback]
       return
     end
     @user = User.find_by_authentication_token(auth_token)
     logger.info("token_auth!")
     logger.info("user: #{@user.to_json}")
     unless @user
-      render :json => { :error => "invalid token" }
+      render :json => { :error => "invalid token" },
+             :callback => params[:callback]
       return
     end
   end
