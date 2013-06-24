@@ -7,6 +7,10 @@ gem 'unicorn'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-evernote'
+gem 'omniauth-github'
+
+gem 'evernote_oauth'
 
 gem 'kaminari'
 # Bundle edge Rails instead:
