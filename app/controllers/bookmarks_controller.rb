@@ -20,7 +20,7 @@ class BookmarksController < ApplicationController
       user.bookmarks << bookmark
       #bookmark.collect_count += 1
       bookmark.save
-      render :json => { :code => 200 }
+      render :json => { :code => 200 }, :callback => params[:callback]
     end
   end
 
@@ -29,20 +29,18 @@ class BookmarksController < ApplicationController
     user = User.find(params[:user_id])
 
     if user.bookmarks.include? bookmark
-      render :json => { :code => 201 }
+      render :json => { :code => 201 }, :callback => params[:callback]
     else
       user.bookmarks << bookmark
       bookmark.collect_count += 1
       bookmark.save
-      render :json => { :code => 200 }
+      render :json => { :code => 200 }, :callback => params[:callback]
     end
   end
 
   def search
-    render :json => {
-                      #:code => 200,
-                      :bookmarks => Bookmark.search(params[:query])
-                    }
+    render :json => { :bookmarks => Bookmark.search(params[:query])},
+                    :callback => params[:callback]
   end
 
   def top
@@ -51,7 +49,7 @@ class BookmarksController < ApplicationController
     #  :code => 200,
     #  :bookmarks => bookmarks
     #}
-    render :json => bookmarks
+    render :json => bookmarks, :callback => params[:callback]
   end
 
   def elect
@@ -61,7 +59,8 @@ class BookmarksController < ApplicationController
     if Vote.where(vote_params).first
       render :json => { :code => 201,
                         :vote_up => bookmark.vote_up,
-                        :vote_down => bookmark.vote_down }
+                        :vote_down => bookmark.vote_down },
+             :callback => params[:callback]
     else
       if (params[:vote] == 1) || (params[:vote] == "1")
         bookmark.vote_up += 1
@@ -73,7 +72,8 @@ class BookmarksController < ApplicationController
 
       render :json => {:code => 200,
                        :vote_up => bookmark.vote_up,
-                       :vote_down => bookmark.vote_down}
+                       :vote_down => bookmark.vote_down},
+             :callback => params[:callback]
     end
   end
 
