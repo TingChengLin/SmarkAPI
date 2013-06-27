@@ -41,6 +41,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def facebook
+    authorizations.find_by_provider(:facebook)
+  end
+
+  def evernote
+    authorizations.find_by_provider(:evernote)
+  end
+
   def bind_evernote(token)
     if auth = authorizations.find_by_provider("evernote")
       auth.update_attribute(:token, token)

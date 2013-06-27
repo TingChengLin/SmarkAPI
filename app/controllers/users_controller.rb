@@ -8,10 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    #user = User.find(params[:id])
-    #render :json => (@user.bookmarks.map &lambda { |b| b.profile }),
-    #       :callback => params[:callback]
     render :json => { :name => @user.email.split("@")[0],
+                      :fb_id => @user.facebook ? @user.facebook.uid : nil,
                       :tags => (@user.tags.map &lambda { |t| t.profile }),
                       :bookmarks => (@user.bookmarks.map &lambda { |b| b.profile }) },
            :callback => params[:callback]
