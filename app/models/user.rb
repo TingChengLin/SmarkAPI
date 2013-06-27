@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   extend OmniauthCallbacks
 
   has_and_belongs_to_many :bookmarks
+  has_and_belongs_to_many :tags
+
   has_many :votes
   has_many :authorizations
 

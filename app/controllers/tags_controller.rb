@@ -1,8 +1,17 @@
 class TagsController < ApplicationController
 
   def index
-    render :json => { :tags => Tag.select(:name).all },
-             :callback => params[:callback]
+    case params[:orderby]
+    when "use_count"
+      tags = Tag.joins(:bookmarks).select("COUNT(bookmarks.id) as use_count").group('tags.id').order("COUNT(bookmarks.id) DESC")
+    when "subscribe_count"
+      tags = Tag.joins(:users).select("COUNT(users.id) as subscribe_count").group('tags.id').order("COUNT(users.id) DESC")
+    else
+      tags = Tag.select(:name).all
+    end
+    render :json => { :tags => tags },
+           :callback => params[:callback]
+
   end
 
   def show
