@@ -22,7 +22,7 @@ class TagsController < ApplicationController
   end
 
   def search
-    render :json => [ Tag.instance_search(params[:query]) ],
+    render :json => { :tags => Tag.instance_search(params[:query]) },
              :callback => params[:callback]
   end
 
