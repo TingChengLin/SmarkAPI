@@ -28,7 +28,15 @@ class TagsController < ApplicationController
   end
 
   def top
-    tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+    case params[:orderby]
+    when "use_count"
+      tags = Tag.joins(:bookmarks).select("COUNT(bookmarks.id) as use_count").group('tags.id').order("COUNT(bookmarks.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+    when "subscribe_count"
+      tags = Tag.joins(:users).select("COUNT(users.id) as subscribe_count").group('tags.id').order("COUNT(users.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+    else
+      tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+    end
+
     render :json => { :code => 200, :tags => tags },
              :callback => params[:callback]
   end
