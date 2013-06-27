@@ -1,4 +1,5 @@
 class BookmarksController < ApplicationController
+  before_filter :token_auth!, :except => [:index, :search, :top]
 
   def index
     bookmarks = Bookmark.order("id DESC").map &lambda { |b| b.profile }
@@ -12,12 +13,12 @@ class BookmarksController < ApplicationController
 
   def create
     bookmark = Bookmark.find_or_create(bookmark_params)
-    user = User.find_by_id(params[:id])
+    #user = User.find_by_id(params[:id])
 
-    if user.bookmarks.include? bookmark
+    if @user.bookmarks.include? bookmark
       render :json => { :code => 201 }
     else
-      user.bookmarks << bookmark
+      @user.bookmarks << bookmark
       #bookmark.collect_count += 1
       bookmark.save
       render :json => { :code => 200 }, :callback => params[:callback]
@@ -25,13 +26,13 @@ class BookmarksController < ApplicationController
   end
 
   def collect
-    bookmark = Bookmark.find(params[:bookmark_id])
-    user = User.find(params[:user_id])
+    @bookmark = Bookmark.find(params[:bookmark_id])
+    # user = User.find(params[:user_id])
 
-    if user.bookmarks.include? bookmark
+    if @user.bookmarks.include? bookmark
       render :json => { :code => 201 }, :callback => params[:callback]
     else
-      user.bookmarks << bookmark
+      @user.bookmarks << bookmark
       bookmark.collect_count += 1
       bookmark.save
       render :json => { :code => 200 }, :callback => params[:callback]
@@ -54,9 +55,9 @@ class BookmarksController < ApplicationController
 
   def elect
     bookmark = Bookmark.find(params[:bookmark_id])
-    user = User.find(params[:user_id])
+    # user = User.find(params[:user_id])
 
-    if Vote.where(vote_params).first
+    if @user.votes.where(vote_params).first
       render :json => { :code => 201,
                         :vote_up => bookmark.vote_up,
                         :vote_down => bookmark.vote_down },
@@ -68,7 +69,7 @@ class BookmarksController < ApplicationController
         bookmark.vote_down += 1
       end
       bookmark.save
-      Vote.create(vote_params)
+      @user.votes.create(vote_params)
 
       render :json => {:code => 200,
                        :vote_up => bookmark.vote_up,
@@ -83,6 +84,6 @@ private
   end
 
   def vote_params
-    params.slice("bookmark_id", "user_id", "vote")
+    params.slice("bookmark_id", "vote")
   end
 end

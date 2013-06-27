@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_filter :token_auth!, :except => [:index, :show, :search, :top]
 
   def index
     case params[:orderby]
