@@ -2,8 +2,9 @@ require 'net/http'
 
 # sign up
 def sign_up
-  uri = URI('http://localhost:3000/users')
-  res = Net::HTTP.post_form(uri, 'email' => 'vv@storysensecomputing.com', 'password' => '12345678')
+  #uri = URI('http://localhost:3000/users')
+  uri = URI('http://54.249.26.55/users')
+  res = Net::HTTP.post_form(uri, 'email' => 'lintingy@gmail.com', 'password' => '12345678')
   puts res.body
 end
 
