@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :token_auth!
   def index
     #render :text => "Smark!"
 =begin
