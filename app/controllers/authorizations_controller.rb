@@ -14,8 +14,10 @@ FB_APP_ID = "603714572980258"
 FB_CLIENT_SECRET = "0ef08c2522f552d04208a309b808521e"
 
 
-HOST = "localhost"
-PORT = 3000
+#HOST = "localhost"
+#PORT = 3000
+HOST = "api.smark.cc"
+POST = 80
 
 class AuthorizationsController < ApplicationController
   before_filter :token_auth!
@@ -23,8 +25,8 @@ class AuthorizationsController < ApplicationController
   def evernote
     callback_url = url_for(:controller => "authorizations",
                            :action => "evernote_callback",
-                           :host => "localhost",
-                           :port => 3000)
+                           :host => HOST,
+                           :port => PORT)
     puts "callback_url: #{callback_url}"
 
     # pass user param by uri param
