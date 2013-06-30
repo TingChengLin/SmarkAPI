@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     else
       warden.custom_failure!
       render :json => { :status => "error",
-                        :message => @user.errors },
+                        :message => @user.errors.to_json },
              :callback => params[:callback]
       #render :json=> user.errors, :status=>422,
       #       :callback => params[:callback]

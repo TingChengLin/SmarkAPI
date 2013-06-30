@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
       warden.custom_failure!
       #render :json=> @user.errors, :status=>422
       render :json => { :status => "error",
-                        :message => @user.errors },
+                        :message => @user.errors.to_json },
              :callback => params[:callback]
     end
   end
