@@ -9,10 +9,12 @@ class RegistrationsController < ApplicationController
              :callback => params[:callback]
       return
     else
-      render :json => { :error => "user already exist" },
-             :callback => params[:callback]
-      #warden.custom_failure!
+      #render :json => { :error => "user already exist" },
+      #       :callback => params[:callback]
+      warden.custom_failure!
       #render :json=> @user.errors, :status=>422
+      render :json => { :status => "error",
+                        :message => @user.errors }
     end
   end
 end
