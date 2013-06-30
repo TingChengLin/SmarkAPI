@@ -22,4 +22,16 @@ def sign_in
   res = Net::HTTP.post_form(uri, 'email' => 'vv@storysensecomputing.com', 'password' => '12345678')
   puts res.body
 end
-pkupkVjwrdTPyqkmp5gp
+
+# bookmark
+def create
+  uri = URI('http://54.249.26.55/bookmarks')
+  res = Net::HTTP.post_form(uri,
+                            'url' => 'http://danielkummer.github.io/git-flow-cheatsheet/',
+                            'title' => 'git flow cheatsheet',
+                            'description' => 'git-flow are a set of git extensions to provide high-level repository operations for Vincent Driessen\'s branching model. This cheatsheet shows the basic usage and effect of git-flow operations',
+                            'tags[]' => 'git',
+                            'auth_token' => 'pgn94qjcyuDwHJQWBXcp')
+  puts res.body
+end
+
