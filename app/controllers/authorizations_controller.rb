@@ -17,7 +17,7 @@ FB_CLIENT_SECRET = "0ef08c2522f552d04208a309b808521e"
 #HOST = "localhost"
 #PORT = 3000
 HOST = "api.smark.cc"
-POST = 80
+PORT = 80
 
 class AuthorizationsController < ApplicationController
   before_filter :token_auth!

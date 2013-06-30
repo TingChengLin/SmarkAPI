@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
     response.headers["Access-Control-Allow-Methods"] = "*"
   end
 
+  def parse_json_request
+    json_body = request.raw_post
+    if !json_body.blank?
+      params.merge!(JSON.parse(json_body))
+    end
+  end
+
   def token_auth!
     auth_token = params[:auth_token] || params[:state]
     unless auth_token

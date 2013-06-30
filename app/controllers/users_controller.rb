@@ -17,4 +17,11 @@ class UsersController < ApplicationController
            :callback => params[:callback]
 
   end
+
+  def subscribe
+    render :json => { :status => "success",
+                      :tags => @user.subscribe(params[:tags]) },
+           :callback => params[:callback]
+  end
+
 end

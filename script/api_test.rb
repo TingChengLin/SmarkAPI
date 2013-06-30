@@ -9,8 +9,10 @@ def sign_up
 end
 
 def sign_out
-  url = 'localhost'
-  request = Net::HTTP.new(url, 3000)
+  #url = 'localhost'
+  #request = Net::HTTP.new(url, 3000)
+  url = 'api.smark.cc'
+  request = Net::HTTP.new(url, 80)
   params = { 'auth_token' => 'pkupkVjwrdTPyqkmp5gp' }
   request.delete("/users/sign_out?#{URI.encode_www_form(params)}")
 end
