@@ -26,6 +26,7 @@ GrabItApi::Application.routes.draw do
 
   resources :welcome
   resources :users do
+    post 'subscribe'
     resources :tags
     resources :bookmarks
   end

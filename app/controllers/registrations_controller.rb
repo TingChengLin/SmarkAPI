@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  #before_filter :parse_json_request, :only => [:create]
+
   def create
     logger.info("registration create")
     logger.info("params: #{params.to_json}")
