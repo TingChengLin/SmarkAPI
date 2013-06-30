@@ -36,9 +36,11 @@ class TagsController < ApplicationController
   def top
     case params[:orderby]
     when "use_count"
-      tags = Tag.joins(:bookmarks).select("COUNT(bookmarks.id) as use_count").group('tags.id').order("COUNT(bookmarks.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+      #tags = Tag.joins(:bookmarks).select("COUNT(bookmarks.id) as use_count").group('tags.id').order("COUNT(bookmarks.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+      tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     when "subscribe_count"
-      tags = Tag.joins(:users).select("COUNT(users.id) as subscribe_count").group('tags.id').order("COUNT(users.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+      #tags = Tag.joins(:users).select("COUNT(users.id) as subscribe_count").group('tags.id').order("COUNT(users.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+      tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     else
       tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     end
