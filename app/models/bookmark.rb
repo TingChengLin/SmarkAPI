@@ -32,8 +32,11 @@ class Bookmark < ActiveRecord::Base
       if tag && !(bookmark.tags.include? tag)
         logger.info("4: #{tag}")
         bookmark.tags << tag
+        logger.info("use_count before: #{tag.use_count}")
         tag.use_count += 1
+        logger.info("use_count middle: #{tag.use_count}")
         tag.save
+        logger.info("use_count after: #{tag.use_count}")
       end
     end
     bookmark
