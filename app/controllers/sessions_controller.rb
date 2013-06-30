@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     unless @user
-      render :json => { :error => "invalid email" },
+      render :json => { :status => "error",
+                        :message => "accout with this email not exist" },
              :callback => params[:callback]
       return
     end
@@ -12,13 +13,18 @@ class SessionsController < ApplicationController
     if @user.valid_password?(params[:password])
       sign_in(@user)
       logger.info("current_user: #{current_user.to_json}")
-      render :json=> { :id => @user.id, :auth_token => @user.authentication_token },
+      render :json => { :status => "success",
+                        :id => @user.id,
+                        :auth_token => @user.authentication_token },
              :callback => params[:callback]
       return
     else
       warden.custom_failure!
-      render :json=> user.errors, :status=>422,
+      render :json => { :status => "error",
+                        :message => @user.errors },
              :callback => params[:callback]
+      #render :json=> user.errors, :status=>422,
+      #       :callback => params[:callback]
     end
   end
 
@@ -28,7 +34,8 @@ class SessionsController < ApplicationController
     @user.update_attribute(:authentication_token, nil)
     sign_out(@user)
 
-    render :json => @user,
+    render :json { :status => "success",
+                   :id => @user.id },
            :callback => params[:callback]
   end
 end
