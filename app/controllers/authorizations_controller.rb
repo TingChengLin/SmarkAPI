@@ -44,7 +44,8 @@ class AuthorizationsController < ApplicationController
 
     @user.bind_evernote(session[:access_token].token)
 
-    render :json => { :oauth_verifier => session[:oauth_verifier],
+    render :json => { :status => "success",
+                      :oauth_verifier => session[:oauth_verifier],
                       :access_token => session[:access_token],
                       :username => client.user_store.getUser(auth_token),
                       :notebooks => client.note_store.listNotebooks(auth_token) },

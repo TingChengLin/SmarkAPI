@@ -8,7 +8,9 @@ class BookmarksController < ApplicationController
     #  :bookmarks => bookmarks
     #}
     logger.info("render: #{bookmarks.to_json}")
-    render :json => { :bookmarks => bookmarks }, :callback => params[:callback]
+    render :json => { :status => "success",
+                      :bookmarks => bookmarks },
+           :callback => params[:callback]
   end
 
   def create
@@ -16,12 +18,16 @@ class BookmarksController < ApplicationController
     #user = User.find_by_id(params[:id])
 
     if @user.bookmarks.include? bookmark
-      render :json => { :code => 201 }
+      render :json => { :status => "success",
+                        :id => bookmark.id },
+             :callback => params[:callback]
     else
       @user.bookmarks << bookmark
       #bookmark.collect_count += 1
       bookmark.save
-      render :json => { :code => 200 }, :callback => params[:callback]
+      render :json => { :status => "success",
+                        :id => bookmark.id },
+             :callback => params[:callback]
     end
   end
 

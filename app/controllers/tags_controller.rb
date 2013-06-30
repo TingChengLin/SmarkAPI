@@ -10,7 +10,8 @@ class TagsController < ApplicationController
     else
       tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     end
-    render :json => { :tags => tags },
+    render :json => { :status => "success",
+                      :tags => tags },
            :callback => params[:callback]
 
   end
@@ -18,13 +19,15 @@ class TagsController < ApplicationController
   def show
     tag = Tag.find(params[:id])
     bookmarks = tag.bookmarks
-    render :json => { :bookmarks => (bookmarks.map &lambda { |b| b.profile }) },
-             :callback => params[:callback]
+    render :json => { :status => "success",
+                      :bookmarks => (bookmarks.map &lambda { |b| b.profile }) },
+           :callback => params[:callback]
   end
 
   def search
-    render :json => { :tags => Tag.search(params[:query]) },
-             :callback => params[:callback]
+    render :json => { :status => "success",
+                      :tags => Tag.search(params[:query]) },
+           :callback => params[:callback]
   end
 
   def top
@@ -37,8 +40,9 @@ class TagsController < ApplicationController
       tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     end
 
-    render :json => { :tags => tags },
-             :callback => params[:callback]
+    render :json => { :status => "success",
+                      :tags => tags },
+           :callback => params[:callback]
   end
 
 end

@@ -3,12 +3,14 @@ class UsersController < ApplicationController
 
   def index
     logger.info("current_user: #{current_user.to_json}")
-    render :json => current_user,
+    render :json => { :status => "success",
+                      :user => current_user },
            :callback => params[:callback]
   end
 
   def show
-    render :json => { :name => @user.email.split("@")[0],
+    render :json => { :status => "success",
+                      :name => @user.email.split("@")[0],
                       :fb_id => @user.facebook ? @user.facebook.uid : nil,
                       :tags => (@user.tags.map &lambda { |t| t.profile }),
                       :bookmarks => (@user.bookmarks.map &lambda { |b| b.profile }) },
