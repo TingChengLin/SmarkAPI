@@ -15,6 +15,7 @@ class TagsController < ApplicationController
       tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     end
     render :json => { :status => "success",
+                      :count => Tag.count,
                       :tags => tags },
            :callback => params[:callback]
 
@@ -45,6 +46,7 @@ class TagsController < ApplicationController
     end
 
     render :json => { :status => "success",
+                      :count => Tag.count,
                       :tags => tags },
            :callback => params[:callback]
   end

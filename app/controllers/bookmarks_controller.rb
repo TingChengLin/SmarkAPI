@@ -9,6 +9,7 @@ class BookmarksController < ApplicationController
     #}
     logger.info("render: #{bookmarks.to_json}")
     render :json => { :status => "success",
+                      :count => Bookmark.count,
                       :bookmarks => bookmarks },
            :callback => params[:callback]
   end
