@@ -8,10 +8,7 @@ GrabItApi::Application.routes.draw do
     get "logout" => "devise/sessions#destroy"
   end
 
-  map.connect '/users',
-            :controller => 'registrations',
-            :action => 'create',
-            :conditions => {:method => :options}
+  match '/users', :controller => 'registrations', :action => 'create', :constraints => {:method => 'OPTIONS'}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
