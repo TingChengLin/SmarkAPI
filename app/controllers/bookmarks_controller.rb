@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_filter :token_auth!, :except => [:index, :search, :top]
 
   def index
-    bookmarks = Bookmark.order("id DESC").map &lambda { |b| b.profile }
+    bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     #render :json => {
     #  :code => 200,
     #  :bookmarks => bookmarks
