@@ -5,7 +5,9 @@ class RegistrationsController < ApplicationController
 
     @user = User.new(:email => params[:email], :password => params[:password])
     if @user.save
-      render :json=> { :id => @user.id, :auth_token => @user.authentication_token },
+      render :json=> { :status => "success",
+                       :id => @user.id,
+                       :auth_token => @user.authentication_token },
              :callback => params[:callback]
       return
     else
