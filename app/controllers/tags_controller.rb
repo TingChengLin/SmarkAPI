@@ -4,13 +4,11 @@ class TagsController < ApplicationController
   def index
     case params[:orderby]
     when "use_count"
-      used_tags = Tag.joins(:bookmarks).select("*, COUNT(bookmarks.id) as use_count").group('tags.id').order("COUNT(bookmarks.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
-      #empty_tags = Tag.where('id not in (?)', (used_tags.map &lambda { |t| t.id }))
-      #tags = used_tags + empty_tags
+      #used_tags = Tag.joins(:bookmarks).select("*, COUNT(bookmarks.id) as use_count").group('tags.id').order("COUNT(bookmarks.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+      tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     when "subscribe_count"
-      used_tags = Tag.joins(:users).select("*, COUNT(users.id) as subscribe_count").group('tags.id').order("COUNT(users.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
-      #empty_tags = Tag.where('id not in (?)', (used_tags.map &lambda { |t| t.id }))
-      #tags = used_tags + empty_tags
+      #used_tags = Tag.joins(:users).select("*, COUNT(users.id) as subscribe_count").group('tags.id').order("COUNT(users.id) DESC").page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
+      tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     else
       tags = Tag.page(params[:page]).per(params[:per]).map &lambda { |t| t.profile }
     end
