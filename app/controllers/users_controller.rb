@@ -19,8 +19,10 @@ class UsersController < ApplicationController
   end
 
   def subscribe
+    @user.subscribe(params[:tag_id])
+    tags = @user.tags.map &lambda { |t| t.profile }
     render :json => { :status => "success",
-                      :tags => @user.subscribe(params[:tags]) },
+                      :tags => tags },
            :callback => params[:callback]
   end
 

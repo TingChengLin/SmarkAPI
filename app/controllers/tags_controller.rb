@@ -50,5 +50,4 @@ class TagsController < ApplicationController
                       :tags => tags },
            :callback => params[:callback]
   end
-
 end

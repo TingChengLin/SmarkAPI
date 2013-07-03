@@ -49,16 +49,13 @@ class User < ActiveRecord::Base
     authorizations.find_by_provider(:evernote)
   end
 
-  def subscribe(tag_names)
-    tag_names.each do |tag_name|
-      tag = Tag.find_by_name(tag_name)
-      if tag && !self.tags.include?(tag)
-        self.tags << tag
-        self.subscribe_count += 1
-        self.save
-      end
+  def subscribe(tag_id)
+    tag = Tag.find(tag_id)
+    if tag && !self.tags.include?(tag)
+      self.tags << tag
+      self.subscribe_count += 1
+      self.save
     end
-    self.tags.map &lambda { |t| t.profile }
   end
 
   def bind_evernote(token)
