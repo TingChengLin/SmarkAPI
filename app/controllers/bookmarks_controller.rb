@@ -3,9 +3,9 @@ class BookmarksController < ApplicationController
 
   def index
     if params[:tag_id]
-      bookmarks = Bookmark
-    else
       bookmarks = Tag.find(params[:tag_id]).bookmarks
+    else
+      bookmarks = Bookmark
     end
 
     case params[:orderby]
