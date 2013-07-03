@@ -53,8 +53,8 @@ class User < ActiveRecord::Base
     tag = Tag.find(tag_id)
     if tag && !self.tags.include?(tag)
       self.tags << tag
-      self.subscribe_count += 1
-      self.save
+      tag.subscribe_count += 1
+      tag.save
     end
   end
 
