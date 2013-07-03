@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
     case params[:orderby]
     when "collect_count"
       bookmarks = Bookmark.order("collect_count DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
-    when "vote"
+    when "votes"
       bookmarks = Bookmark.select("*, (vote_up - vote_down) as vote").order("vote DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     else
       bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
@@ -62,7 +62,7 @@ class BookmarksController < ApplicationController
     case params[:orderby]
     when "collect_count"
       bookmarks = Bookmark.order("collect_count DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
-    when "vote"
+    when "votes"
       bookmarks = Bookmark.select("*, (vote_up - vote_down) as vote").order("vote DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     else
       bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
