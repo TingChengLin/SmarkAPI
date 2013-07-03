@@ -13,7 +13,7 @@ class Tag < ActiveRecord::Base
   end
 
   def profile
-    self.attributes.slice("id", "name", "description")
+    self.attributes.slice("id", "name", "description", "use_count", "subscribe_count")
   end
 
 end
