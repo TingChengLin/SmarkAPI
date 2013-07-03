@@ -27,9 +27,9 @@ end
 def create
   uri = URI('http://54.249.26.55/bookmarks')
   res = Net::HTTP.post_form(uri,
-                            'url' => 'http://danielkummer.github.io/git-flow-cheatsheet/',
-                            'title' => 'git flow cheatsheet',
-                            'description' => 'git-flow are a set of git extensions to provide high-level repository operations for Vincent Driessen\'s branching model. This cheatsheet shows the basic usage and effect of git-flow operations',
+                            'url' => 'http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html',
+                            'title' => 'git-flow 备忘清单',
+                            'description' => '这个备忘清单展示了 git-flow 的基本操作和效果。',
                             'tags[]' => 'git',
                             'auth_token' => 'pgn94qjcyuDwHJQWBXcp')
   puts res.body

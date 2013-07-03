@@ -2,7 +2,14 @@ class BookmarksController < ApplicationController
   before_filter :token_auth!, :except => [:index, :search, :top]
 
   def index
-    bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    case params[:orderby]
+    when "collect_count"
+      bookmarks = Bookmark.order("collect_count DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    when "vote"
+      bookmarks = Bookmark.select("*, (vote_up - vote_down) as vote").order("vote DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    else
+      bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    end
     #render :json => {
     #  :code => 200,
     #  :bookmarks => bookmarks
@@ -52,12 +59,23 @@ class BookmarksController < ApplicationController
   end
 
   def top
-    bookmarks = Bookmark.order(:collect_count).page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    case params[:orderby]
+    when "collect_count"
+      bookmarks = Bookmark.order("collect_count DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    when "vote"
+      bookmarks = Bookmark.select("*, (vote_up - vote_down) as vote").order("vote DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    else
+      bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+    end
     #render :json => {
     #  :code => 200,
     #  :bookmarks => bookmarks
     #}
-    render :json => bookmarks, :callback => params[:callback]
+    logger.info("render: #{bookmarks.to_json}")
+    render :json => { :status => "success",
+                      :count => Bookmark.count,
+                      :bookmarks => bookmarks },
+           :callback => params[:callback]
   end
 
   def elect
@@ -72,8 +90,10 @@ class BookmarksController < ApplicationController
     else
       if (params[:vote] == 1) || (params[:vote] == "1")
         bookmark.vote_up += 1
+        bookmark.total_votes += 1
       else (params[:vote] == -1) || (params[:vote] == "-1")
         bookmark.vote_down += 1
+        bookmark.total_votes -= 1
       end
       bookmark.save
       @user.votes.create(vote_params)
