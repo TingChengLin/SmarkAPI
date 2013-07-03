@@ -44,6 +44,8 @@ GrabItApi::Application.routes.draw do
   end
 
   resources :tags do
+    resources :bookmarks
+
     collection do
       get 'search'
       get 'top'

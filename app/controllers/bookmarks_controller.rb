@@ -2,13 +2,19 @@ class BookmarksController < ApplicationController
   before_filter :token_auth!, :except => [:index, :search, :top]
 
   def index
+    if params[:tag_id]
+      bookmarks = Bookmark
+    else
+      bookmarks = Tag.find(params[:tag_id]).bookmarks
+    end
+
     case params[:orderby]
     when "collect_count"
-      bookmarks = Bookmark.order("collect_count DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+      bookmarks = bookmarks.order("collect_count DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     when "votes"
-      bookmarks = Bookmark.select("*, (vote_up - vote_down) as vote").order("vote DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+      bookmarks = bookmarks.select("*, (vote_up - vote_down) as vote").order("vote DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     else
-      bookmarks = Bookmark.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
+      bookmarks = bookmarks.order("id DESC").page(params[:page]).per(params[:per]).map &lambda { |b| b.profile }
     end
     #render :json => {
     #  :code => 200,

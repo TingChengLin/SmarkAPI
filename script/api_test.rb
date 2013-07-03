@@ -26,7 +26,7 @@ end
 def subscribe
   #uri = URI('http://localhost:3000/users')
   uri = URI('http://54.249.26.55/users/subscribe')
-  res = Net::HTTP.post_form(uri, 'tag_id' => 704, 'auth_token' => "pgn94qjcyuDwHJQWBXcp")
+  res = Net::HTTP.post_form(uri, 'tag_id' => 706, 'auth_token' => "pgn94qjcyuDwHJQWBXcp")
   puts res.body
 end
 
