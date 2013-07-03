@@ -21,9 +21,8 @@ class TagsController < ApplicationController
 
   def show
     tag = Tag.find(params[:id])
-    bookmarks = tag.bookmarks
     render :json => { :status => "success",
-                      :bookmarks => (bookmarks.map &lambda { |b| b.profile }) },
+                      :profile => tag.profile },
            :callback => params[:callback]
   end
 
