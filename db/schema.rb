@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130630141859) do
+ActiveRecord::Schema.define(:version => 20130630152200) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(:version => 20130630141859) do
     t.text     "url"
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "collect_count", :default => 1
     t.integer  "vote_up",       :default => 0
     t.integer  "vote_down",     :default => 0
+    t.string   "total_votes",   :default => "0"
   end
 
   create_table "bookmarks_tags", :id => false, :force => true do |t|
