@@ -2,9 +2,15 @@ class UsersController < ApplicationController
   before_filter :token_auth!, :except => [:index]
 
   def index
-    logger.info("current_user: #{current_user.to_json}")
+    if params[:tag_id]
+      users = Tag.find(params[:tag_id]).users
+    else
+      users = User
+    end
+    users = users.all.map &lambda { |u| u.profile }
+    # logger.info("current_user: #{current_user.to_json}")
     render :json => { :status => "success",
-                      :user => current_user },
+                      :users => users },
            :callback => params[:callback]
   end
 

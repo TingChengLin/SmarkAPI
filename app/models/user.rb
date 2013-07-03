@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def profile
+    self.attributes.slice("id", "email")
+  end
+
   def facebook
     authorizations.find_by_provider(:facebook)
   end
