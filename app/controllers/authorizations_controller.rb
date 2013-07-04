@@ -5,8 +5,8 @@ require 'cgi'
 
 
 
-OAUTH_CONSUMER_KEY = "lintingy-6652"
-OAUTH_CONSUMER_SECRET = "c6c33cf406a042fb"
+OAUTH_CONSUMER_KEY = "lintingy-0414"
+OAUTH_CONSUMER_SECRET = "f24a88a58ffb61a4"
 
 SANDBOX = true
 
