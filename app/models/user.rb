@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def services
+    authorizations.select(:provider).map &lambda { |a| a.provider }
+  end
+
   def profile
     self.attributes.slice("id", "email")
   end

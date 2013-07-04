@@ -17,7 +17,8 @@ class SessionsController < ApplicationController
       logger.info("current_user: #{@user.to_json}")
       render :json => { :status => "success",
                         :id => @user.id,
-                        :auth_token => @user.authentication_token },
+                        :auth_token => @user.authentication_token,
+                        :services => @user.services },
              :callback => params[:callback]
       return
     else
