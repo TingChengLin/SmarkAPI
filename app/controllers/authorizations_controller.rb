@@ -39,8 +39,8 @@ class AuthorizationsController < ApplicationController
     session[:oauth_verifier] = params['oauth_verifier']
     #session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    puts "params: #{params}"
-    puts "access_token: #{session[:access_token].to_json}"
+    logger.info( "params: #{params}")
+    logger.info( "access_token: #{session[:access_token].to_json}")
 
     @user.bind_evernote(session[:access_token].token)
 
