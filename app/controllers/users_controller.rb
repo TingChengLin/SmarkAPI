@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :token_auth!, :except => [:index]
+  before_filter :token_auth!, :except => [:index, :show]
 
   def index
     if params[:tag_id]
