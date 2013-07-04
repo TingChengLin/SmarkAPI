@@ -42,6 +42,8 @@ class AuthorizationsController < ApplicationController
     puts "params: #{params}"
     puts "access_token: #{session[:access_token].to_json}"
 
+    @user.bind_evernote(session[:access_token].token)
+
     #create_note
     if guid = get_smark_notebook_guid
       logger.info("guid: #{guid}")
@@ -50,7 +52,8 @@ class AuthorizationsController < ApplicationController
       logger.info("notebook: #{notebook}")
     end
 
-    @user.bind_evernote(session[:access_token].token)
+    create_note_in_smark
+
 
     #render :json => { :status => "success",
     #                  :oauth_verifier => session[:oauth_verifier],
@@ -94,34 +97,6 @@ class AuthorizationsController < ApplicationController
 
 
 private
-
-  def create_notebook
-    client = EvernoteOAuth::Client.new(token: auth_token)
-    note_store = client.note_store
-
-    notebook = Evernote::EDAM::Type::Notebook.new
-    notebook.name = "Smark"
-
-    created_notebook = note_store.createNotebook(notebook)
-    note_store.getNotebook(created_notebook.guid)
-  end
-
-  def create_note
-    client_2 = EvernoteOAuth::Client.new(token: auth_token)
-    note_store = client_2.note_store
-
-    note = Evernote::EDAM::Type::Note.new
-    note.title = "Note"
-    note.content =
-    "<?xml version='1.0' encoding='UTF-8'?>" +
-    "<!DOCTYPE en-note SYSTEM 'http://xml.evernote.com/pub/enml2.dtd'>" +
-    "<en-note>Content</en-note>"
-
-    note.tagNames = ["Evernote API Sample"]
-
-    note_store.createNote(note)
-  end
-
 
   def auth_token
     session[:access_token].token if session[:access_token]
