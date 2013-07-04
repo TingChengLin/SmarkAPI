@@ -11,7 +11,7 @@ def create_notebook
   notebook = Evernote::EDAM::Type::Notebook.new
   notebook.name = "Smark"
 
-  created_notbook = note_store.createNotebook(notebook)
+  created_notebook = note_store.createNotebook(notebook)
   note_store.getNotebook(created_notebook.guid)
 end
 
