@@ -95,16 +95,4 @@ class AuthorizationsController < ApplicationController
     render :json => CGI::parse(@data.body)
   end
 
-
-private
-
-  def auth_token
-    session[:access_token].token if session[:access_token]
-  end
-
-  def client
-    @client ||= EvernoteOAuth::Client.new(token: auth_token, consumer_key:OAUTH_CONSUMER_KEY, consumer_secret:OAUTH_CONSUMER_SECRET, sandbox: SANDBOX)
-  end
-
-
 end
