@@ -4,7 +4,6 @@ require 'evernote_oauth'
 require 'cgi'
 
 
-
 OAUTH_CONSUMER_KEY = "lintingy-0414"
 OAUTH_CONSUMER_SECRET = "f24a88a58ffb61a4"
 
@@ -42,8 +41,14 @@ class AuthorizationsController < ApplicationController
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
     puts "params: #{params}"
     puts "access_token: #{session[:access_token].to_json}"
+
     #create_note
-    create_notebook
+    if guid = get_smark_notebook_guid
+      logger.info("guid: #{guid}")
+    else
+      notebook = create_notebook
+      logger.info("notebook: #{notebook}")
+    end
 
     @user.bind_evernote(session[:access_token].token)
 

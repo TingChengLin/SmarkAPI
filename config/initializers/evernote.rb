@@ -1,5 +1,3 @@
-logger.info("in lib!!!")
-
 def token
   @user = User.first
   token = @user.authorizations.find_by_provider("evernote").token
