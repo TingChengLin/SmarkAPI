@@ -1,10 +1,15 @@
-def token
-  @user = User.first
-  token = @user.authorizations.find_by_provider("evernote").token
+def evernote_token
+  # @user = User.first
+  if auth = @user.authorizations.find_by_provider("evernote")
+    token = auth.token
+  else
+    token = nil
+  end
+  # token = @user.authorizations.find_by_provider("evernote").token
 end
 
 def create_notebook
-  client = EvernoteOAuth::Client.new(token: token)
+  client = EvernoteOAuth::Client.new(token: evernote_token)
   note_store = client.note_store
 
   notebook = Evernote::EDAM::Type::Notebook.new
@@ -15,9 +20,9 @@ def create_notebook
 end
 
 def get_smark_notebook_guid
-  client = EvernoteOAuth::Client.new(token: token)
+  client = EvernoteOAuth::Client.new(token: evernote_token)
   note_store = client.note_store
-  notebooks = note_store.listNotebooks(token)
+  notebooks = note_store.listNotebooks(evernote_token)
 
   notebook_guid = nil
   notebooks.each do |nb|
@@ -30,7 +35,7 @@ def get_smark_notebook_guid
 end
 
 def create_note_in_smark
-  client_2 = EvernoteOAuth::Client.new(token: token)
+  client_2 = EvernoteOAuth::Client.new(token: evernote_token)
   note_store = client_2.note_store
 
   note = Evernote::EDAM::Type::Note.new

@@ -25,8 +25,9 @@ end
 
 
 def sign_in
-  uri = URI('http://localhost:3000/users/sign_in')
-  res = Net::HTTP.post_form(uri, 'email' => 'vv@storysensecomputing.com', 'password' => '12345678')
+  #uri = URI('http://localhost:3000/users/sign_in')
+  uri = URI('http://api.smark.cc/users/sign_in')
+  res = Net::HTTP.post_form(uri, 'email' => 'lintingy@gmail.com', 'password' => '12345678')
   puts res.body
 end
 
