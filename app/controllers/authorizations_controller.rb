@@ -43,6 +43,7 @@ class AuthorizationsController < ApplicationController
     puts "params: #{params}"
     puts "access_token: #{session[:access_token].to_json}"
     #create_note
+    create_notebook
 
     @user.bind_evernote(session[:access_token].token)
 
@@ -88,6 +89,17 @@ class AuthorizationsController < ApplicationController
 
 
 private
+
+  def create_notebook
+    client = EvernoteOAuth::Client.new(token: auth_token)
+    note_store = client.note_store
+
+    notebook = Evernote::EDAM::Type::Notebook.new
+    notebook.name = "Smark"
+
+    created_notbook = note_store.createNotebook(notebook)
+    note_store.getNotebook(created_notebook.guid)
+  end
 
   def create_note
     client_2 = EvernoteOAuth::Client.new(token: auth_token)
