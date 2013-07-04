@@ -13,9 +13,16 @@ def sign_out
   #request = Net::HTTP.new(url, 3000)
   url = 'api.smark.cc'
   request = Net::HTTP.new(url, 80)
-  params = { 'auth_token' => 'pkupkVjwrdTPyqkmp5gp' }
+  params = { 'auth_token' => 'pgn94qjcyuDwHJQWBXcp' }
   request.delete("/users/sign_out?#{URI.encode_www_form(params)}")
 end
+
+def sign_out_post
+  uri = URI('http://api.smark.cc/users/sign_out')
+  res = Net::HTTP.post_form(uri, 'auth_token' => 'WxtWcWV6vXyWoyzonKXC' )
+  puts res.body
+end
+
 
 def sign_in
   uri = URI('http://localhost:3000/users/sign_in')

@@ -9,7 +9,7 @@ GrabItApi::Application.routes.draw do
   end
 
   match '/users', :controller => 'registrations', :action => 'create', :constraints => {:method => 'OPTIONS'}
-
+  match '/users/sign_out', :controller => 'sessions', :action => 'destroy', :constraints => {:method => 'post'}
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
