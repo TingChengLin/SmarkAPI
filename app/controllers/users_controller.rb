@@ -15,11 +15,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    showed_user = User.find(params[:id])
     render :json => { :status => "success",
-                      :name => @user.email.split("@")[0],
-                      :fb_id => @user.facebook ? @user.facebook.uid : nil,
-                      :tags => (@user.tags.map &lambda { |t| t.profile }),
-                      :bookmarks => (@user.bookmarks.map &lambda { |b| b.profile }) },
+                      :name => showed_user.email.split("@")[0],
+                      :fb_id => showed_user.facebook ? showed_user.facebook.uid : nil,
+                      :tags => (showed_user.tags.map &lambda { |t| t.profile }),
+                      :bookmarks => (showed_user.bookmarks.map &lambda { |b| b.profile }) },
            :callback => params[:callback]
 
   end
