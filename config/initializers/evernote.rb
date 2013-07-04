@@ -1,5 +1,5 @@
 def token
-  @user = User.first
+  #@user = User.first
   token = @user.authorizations.find_by_provider("evernote").token
 end
 
