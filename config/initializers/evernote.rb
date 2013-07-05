@@ -44,6 +44,7 @@ end
 
 def create_notes_of_a_tag(tag)
   bookmarks = tag.bookmarks.where("created_at > ?", Time.now - 1.month)
+  return if bookmarks.empty?
 
   content = "<?xml version='1.0' encoding='UTF-8'?>" +
             "<!DOCTYPE en-note SYSTEM 'http://xml.evernote.com/pub/enml2.dtd'>" +
