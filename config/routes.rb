@@ -32,6 +32,7 @@ GrabItApi::Application.routes.draw do
 
     collection do
       post 'subscribe'
+      post 'unsubscribe'
     end
   end
 

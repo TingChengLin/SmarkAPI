@@ -39,4 +39,16 @@ class UsersController < ApplicationController
            :callback => params[:callback]
   end
 
+  def unsubscribe
+    tag = Tag.find(params[:tag_id])
+    if @user.tags.include? tag
+      @user.tags.delete(tag)
+      render :json => { :status => "success",
+                      :tags => @user.tags },
+             :callback => params[:callback]
+    else
+      render :json => { :status => "tag not belongs to user" },
+             :callback => params[:callback]
+    end
+  end
 end
