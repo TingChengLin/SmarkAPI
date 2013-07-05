@@ -4,7 +4,7 @@ namespace :evernote do
     User.all.each do |user|
       @user = user
       if token
-        create_notebook
+        #create_notebook
         @user.tags.each do |tag|
           create_notes_of_a_tag(tag)
         end
