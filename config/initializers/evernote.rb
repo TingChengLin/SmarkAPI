@@ -1,10 +1,23 @@
+OAUTH_CONSUMER_KEY = "lintingy-0414"
+OAUTH_CONSUMER_SECRET = "f24a88a58ffb61a4"
+
+SANDBOX = false
+
 def token
   #@user = User.first
-  token = @user.authorizations.find_by_provider("evernote").token
+  if auth = @user.authorizations.find_by_provider("evernote")
+    token = auth.token
+  else
+    token = nil
+  end
+end
+
+def client
+  EvernoteOAuth::Client.new(token: token, consumer_key:OAUTH_CONSUMER_KEY, consumer_secret:OAUTH_CONSUMER_SECRET, sandbox: SANDBOX)
 end
 
 def create_notebook
-  client = EvernoteOAuth::Client.new(token: token)
+  #client = EvernoteOAuth::Client.new(token: token)
   note_store = client.note_store
 
   notebook = Evernote::EDAM::Type::Notebook.new
@@ -15,7 +28,7 @@ def create_notebook
 end
 
 def get_smark_notebook_guid
-  client = EvernoteOAuth::Client.new(token: token)
+  # client = EvernoteOAuth::Client.new(token: token)
   note_store = client.note_store
   notebooks = note_store.listNotebooks(token)
 
@@ -30,8 +43,8 @@ def get_smark_notebook_guid
 end
 
 def create_note_in_smark
-  client_2 = EvernoteOAuth::Client.new(token: token)
-  note_store = client_2.note_store
+  # client_2 = EvernoteOAuth::Client.new(token: token)
+  note_store = client.note_store
 
   note = Evernote::EDAM::Type::Note.new
   note.title = "Note"

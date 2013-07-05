@@ -3,10 +3,12 @@ namespace :evernote do
   task :push_tag_articles => :environment do
     User.all.each do |user|
       @user = user
-      if evernote_token
+      if token
         create_notebook
+        @user.tags.each do |tag|
+
+        end
       end
     end
   end
-
 end

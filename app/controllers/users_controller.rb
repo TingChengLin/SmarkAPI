@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class UsersController < ApplicationController
   before_filter :token_auth!, :except => [:index, :show]
 
@@ -16,8 +18,12 @@ class UsersController < ApplicationController
 
   def show
     showed_user = User.find(params[:id])
+    email_address = showed_user.email.downcase
+    hash = Digest::MD5.hexdigest(email_address)
+    img = "http://www.gravatar.com/avatar/#{hash}"
     render :json => { :status => "success",
                       :name => showed_user.email.split("@")[0],
+                      :img => img,
                       :fb_id => showed_user.facebook ? showed_user.facebook.uid : nil,
                       :tags => (showed_user.tags.map &lambda { |t| t.profile }),
                       :bookmarks => (showed_user.bookmarks.map &lambda { |b| b.profile }) },
