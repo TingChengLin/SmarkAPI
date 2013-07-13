@@ -5,6 +5,7 @@ namespace :evernote do
       @user = user
       if token
         #create_notebook
+        puts "in rake!"
         @user.tags.each do |tag|
           create_notes_of_a_tag(tag)
         end

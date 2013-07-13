@@ -61,7 +61,8 @@ class AuthorizationsController < ApplicationController
     #                  :username => client.user_store.getUser(auth_token),
     #                  :notebooks => client.note_store.listNotebooks(auth_token) },
     #       :callback => params[:callback]
-    render :text => "Connect with Evernote Success!"
+    #render :text => "Connect with Evernote Success!"
+    redirect_to "http://smark.cc/"
   end
 
 
