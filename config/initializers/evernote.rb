@@ -66,19 +66,31 @@ def create_notes_of_a_tag(tag)
   note_store.createNote(note)
 end
 
-def create_note_in_smark
+def create_intro_note
   # client_2 = EvernoteOAuth::Client.new(token: token)
   note_store = client.note_store
 
   note = Evernote::EDAM::Type::Note.new
-  note.title = "Note"
+  note.title = "Welcome to Smark!"
   note.notebookGuid = get_smark_notebook_guid
+  video_link = "http://goo.gl/CPy2L"
   note.content =
   "<?xml version='1.0' encoding='UTF-8'?>" +
   "<!DOCTYPE en-note SYSTEM 'http://xml.evernote.com/pub/enml2.dtd'>" +
-  "<en-note>Content</en-note>"
+  "<en-note>" +
+  "<h1>Welcome to Smark!</h1>" + "<br/>" +
+  "Smark is a social bookmark which leverage the power of the community to make learning much easier." + "<br/><br/>" +
+  "With the help of Smark, we can collect all the useful information together and find the most useful webpages and tutorials. All the webpages on Smark are filtered by the crowd, only the best things could survive." + "<br/><br/>" +
+  "More over, learning just became something much easier and smarter. We just need to subscribe to some topics, then Smark will simply keep us updated with the latest trends! All the newest stuff would automatically came into our evernote. All we need to do is read it, and learn from it." + "<br/><br/>" +
+  "Start from the programming field, Smark will expand to education, travel, and a lot more. Not only learning, everything is just so easy!" + "<br/><br/><br/>" +
+  "To know more about Smark, why not just give it a try?" + "<br/>" +
+  "<b><a href=\"http://goo.gl/CPy2L\">Demo Video</a></b>" + "<br/>" +
+  "<b><a href=\"http://smark.cc/\">Website</a></b>" + "<br/>" +
+  "<b><a href=\"https://chrome.google.com/webstore/detail/smark/ieaadpckafloockbcbjapjfiidppkidh\">Google Chrome Extension</a></b>" + "<br/><br/>" +
+  "For any quetions, just contact us at: lintingy@gmail.com. Thanks!" +
+  "</en-note>"
 
-  note.tagNames = ["Evernote API Sample"]
+  note.tagNames = ["smark"]
 
   note_store.createNote(note)
 end

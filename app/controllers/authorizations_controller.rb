@@ -49,10 +49,9 @@ class AuthorizationsController < ApplicationController
       logger.info("guid: #{guid}")
     else
       notebook = create_notebook
+      create_intro_note
       logger.info("notebook: #{notebook}")
     end
-
-    create_note_in_smark
 
 
     #render :json => { :status => "success",
