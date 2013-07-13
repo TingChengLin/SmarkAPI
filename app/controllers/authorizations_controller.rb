@@ -97,6 +97,17 @@ class AuthorizationsController < ApplicationController
 
 
 private
+  def create_notebook
+    # client = EvernoteOAuth::Client.new(token: auth_token)
+    note_store = client.note_store
+
+    notebook = Evernote::EDAM::Type::Notebook.new
+    notebook.name = "Smark"
+
+    created_notebook = note_store.createNotebook(notebook)
+    note_store.getNotebook(created_notebook.guid)
+  end
+
 
   def auth_token
     session[:access_token].token if session[:access_token]
