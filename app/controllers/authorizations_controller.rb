@@ -4,10 +4,10 @@ require 'evernote_oauth'
 require 'cgi'
 
 
-OAUTH_CONSUMER_KEY = "lintingy-0414"
-OAUTH_CONSUMER_SECRET = "f24a88a58ffb61a4"
+#OAUTH_CONSUMER_KEY = "lintingy-0414"
+#OAUTH_CONSUMER_SECRET = "f24a88a58ffb61a4"
 
-SANDBOX = false
+#SANDBOX = false
 
 FB_APP_ID = "603714572980258"
 FB_CLIENT_SECRET = "0ef08c2522f552d04208a309b808521e"
