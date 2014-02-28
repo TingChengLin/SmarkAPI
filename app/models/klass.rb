@@ -8,7 +8,7 @@ class Klass < ActiveRecord::Base
      :info => self.info,
      :dealine => self.deadline,
      :tag => self.tag,
-     :count_down => self.dealine - Time.now,
+     :count_down => (self.deadline - Time.now).to_i,
      :finished => self.posts.count}
   end
 end
