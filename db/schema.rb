@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20140228042806) do
     t.datetime "deadline"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "type"
+    t.string   "tag"
   end
 
   create_table "posts", :force => true do |t|
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20140228042806) do
     t.integer  "klass_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stu_i"
     t.integer  "stu_id"
   end
 
