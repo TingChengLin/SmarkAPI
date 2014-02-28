@@ -6,7 +6,7 @@ class Klass < ActiveRecord::Base
     {:title => self.title,
      :speaker => self.speaker,
      :info => self.info,
-     :dealine => self.deadline,
+     :dealine => self.deadline.strftime("%B %d, %Y %H:%M:%S"),
      :tag => self.tag,
      :count_down => (self.deadline - Time.now).to_i,
      :finished => self.posts.count}
