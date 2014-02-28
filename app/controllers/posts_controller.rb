@@ -30,7 +30,7 @@ class PostsController < ApplicationController
       paragraphs += segments
     end
 
-    return paragraphs.sample(5).join("\n\r\n\r")
+    return paragraphs.sample(5).join("\n\n")
   end
 
   def geneator_2(speaker)
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
                   sentences.sample(6).join(""), 
                   sentences.sample(7).join(""), 
                   sentences.sample(4).join("")]
-    return paragraphs.join("\n\r\n\r")
+    return paragraphs.join("\n\n")
   end
 
 
