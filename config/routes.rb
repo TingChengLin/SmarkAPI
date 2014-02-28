@@ -34,7 +34,8 @@ GrabItApi::Application.routes.draw do
 
   resources :klasses do
     collection do
-      get 'status'
+      get 'ongoing'
+      get 'archived'
     end
   end
 
