@@ -26,6 +26,10 @@ GrabItApi::Application.routes.draw do
   #   resources :products
 
   resources :posts do
+    collection do
+      get 'generate'
+      post 'generate'
+    end
   end
 
   resources :klasses do
