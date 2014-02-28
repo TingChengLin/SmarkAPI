@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def generate
-    render :text => geneator_2(params[:speaker])
+    render :json => { :post => geneator_2(params[:speaker]) }
   end
 
   def geneator_1(speaker)
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
       paragraphs += segments
     end
 
-    return paragraphs.sample(5).join("\n\n")
+    return paragraphs.sample(5).join("\n\r\n\r")
   end
 
   def geneator_2(speaker)
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
                   sentences.sample(6).join(""), 
                   sentences.sample(7).join(""), 
                   sentences.sample(4).join("")]
-    return paragraphs.join("\n\n")
+    return paragraphs.join("\n\r\n\r")
   end
 
 
