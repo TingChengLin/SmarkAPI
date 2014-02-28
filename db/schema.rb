@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130630141859) do
+ActiveRecord::Schema.define(:version => 20140228020902) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(:version => 20130630141859) do
   create_table "bookmarks_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "bookmark_id"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.string   "title",      :limit => 128,        :default => "", :null => false
+    t.text     "body",       :limit => 2147483647,                 :null => false
+    t.integer  "timestamp",                        :default => 0,  :null => false
+    t.string   "speaker"
+    t.text     "info"
+    t.datetime "deadline"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tags", :force => true do |t|
@@ -76,9 +87,14 @@ ActiveRecord::Schema.define(:version => 20130630141859) do
     t.integer  "following_count"
     t.integer  "follower_count"
     t.string   "img"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

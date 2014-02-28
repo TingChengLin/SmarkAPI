@@ -1,14 +1,14 @@
 GrabItApi::Application.routes.draw do
   # devise_for :users
   devise_for :users, :controllers => {
-    :registrations => "registrations",
+    #:registrations => "registrations",
     :sessions => :sessions,
     :omniauth_callbacks => "users/omniauth_callbacks"
   } do
     get "logout" => "devise/sessions#destroy"
   end
 
-  match '/users', :controller => 'registrations', :action => 'create', :constraints => {:method => 'OPTIONS'}
+  #match '/users', :controller => 'registrations', :action => 'create', :constraints => {:method => 'OPTIONS'}
   match '/users/sign_out', :controller => 'sessions', :action => 'destroy', :constraints => {:method => 'POST'}
 
   # The priority is based upon order of creation:
@@ -24,6 +24,12 @@ GrabItApi::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
+  resources :posts
+    collection do
+      get 'status'
+    end
+  end
 
   resources :welcome
   resources :users do
