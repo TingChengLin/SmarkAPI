@@ -10,4 +10,11 @@ class KlassesController < ApplicationController
     k_profiles = klasses.map {|k| k.profile}
     render :json => k_profiles    
   end
+
+  def index
+  end
+
+  def create
+    
+  end
 end

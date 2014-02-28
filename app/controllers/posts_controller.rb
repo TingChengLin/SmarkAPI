@@ -3,14 +3,10 @@ require "date"
 TRIGGER = ["", "\r"]
 
 class PostsController < ApplicationController
-  def status
-    render :json => [
-      {:title => "資種駭客鬆的第一堂課",
-       :speaker => "駭客",
-       :info => "1. 跟資種有關",
-       :dealine => DateTime.new(2014,2,28,21,0,0,'+8'),
-       :finished => 8}
-    ]
+  def create
+    klass = Klass.find_by_title(params[:title])
+    klass.posts.create(:body => params[:body], :stu_id => params[:stu_id])
+    render :json => {:status => "done"}
   end
 
   def generate
@@ -61,3 +57,5 @@ class PostsController < ApplicationController
   end
 
 end
+
+
