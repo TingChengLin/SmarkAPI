@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140228023301) do
+ActiveRecord::Schema.define(:version => 20140228030911) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -57,9 +57,18 @@ ActiveRecord::Schema.define(:version => 20140228023301) do
     t.text     "body",       :limit => 2147483647,                 :null => false
     t.integer  "timestamp",                        :default => 0,  :null => false
     t.integer  "klass_id"
-    t.datetime "author"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stu_id"
+  end
+
+  create_table "student", :force => true do |t|
+    t.integer  "stu_id"
+    t.string   "stu_account"
+    t.string   "stu_password"
+    t.string   "name"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "tags", :force => true do |t|

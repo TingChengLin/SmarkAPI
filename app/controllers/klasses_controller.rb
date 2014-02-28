@@ -1,12 +1,7 @@
 class KlassesController < ApplicationController
   def status
-    k = Klass.first
-    render :json => [
-      {:title => k.title,
-       :speaker => k.speaker,
-       :info => k.info,
-       :dealine => k.deadline,
-       :finished => k.posts.count}
-    ]
+    klasses = Klass.page(param[:page]).per(param[:per])
+    k_profiles = klasses.map {|k| k.profile}
+    render :json => k_profiles
   end
 end
