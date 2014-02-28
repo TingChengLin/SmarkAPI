@@ -26,6 +26,9 @@ GrabItApi::Application.routes.draw do
   #   resources :products
 
   resources :posts do
+  end
+
+  resources :klasses do
     collection do
       get 'status'
     end
