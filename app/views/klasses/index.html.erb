@@ -1,0 +1,30 @@
+<div class="row">
+
+<div class="span5">
+<h4>歷史課程</h4>
+<ul>
+  <% @klasses.each do |k| %>
+    <li><%= k.title %></li>
+  <% end %>
+</ul>
+</div>
+
+<div class="span5">
+<h4>建立課程</h4>
+<%= form_for @klass, :url => { :controller => 'klasses', :action => 'create' } do |k| %>
+    <%= k.label :title, "Title" %>
+    <%= k.text_field :title %>
+
+    <%= k.label :speaker, "Speaker" %>
+    <%= k.text_field :speaker %>
+
+    <%= k.label :info, "Info" %>
+    <%= k.text_field :info %>
+
+    <%= k.label :deadline, "Deadline" %>
+    <%= k.datetime_select :deadline %>
+
+    <%= k.submit "Create", :class => "btn" %>
+<% end %>
+</div>
+</div>

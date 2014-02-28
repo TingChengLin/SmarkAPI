@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
+gem "twitter-bootstrap-rails"
+
 gem 'unicorn'
 
 gem 'devise'

@@ -12,9 +12,14 @@ class KlassesController < ApplicationController
   end
 
   def index
+    @klasses = Klass.order("id DESC").page(params[:page]).per(params[:per])
+    @klass = Klass.new
   end
 
   def create
-    
+    @klass = Klass.new(params[:klass])
+    @klass.save
+
+    redirect_to :action => :index
   end
 end
