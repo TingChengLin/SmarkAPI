@@ -28,3 +28,16 @@
 <% end %>
 </div>
 </div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+  $.ajax({
+    url: "http://ec2-54-249-26-55.ap-northeast-1.compute.amazonaws.com/posts/generate?speaker=林宜儒",
+    cache: false
+  })
+  .done(function( json ) {
+    alert(json["post"]);
+  });
+</script>
+
+
