@@ -7,7 +7,7 @@ class Klass < ActiveRecord::Base
      :speaker => self.speaker,
      :info => self.info,
      :dealine => self.deadline,
-     :type => self.tag,
+     :tag => self.tag,
      :finished => self.posts.count}
   end
 end
