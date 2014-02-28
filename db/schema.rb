@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140228020902) do
+ActiveRecord::Schema.define(:version => 20140228023301) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -43,13 +43,21 @@ ActiveRecord::Schema.define(:version => 20140228020902) do
     t.integer "bookmark_id"
   end
 
+  create_table "klasses", :force => true do |t|
+    t.string   "title"
+    t.string   "speaker"
+    t.text     "info"
+    t.datetime "deadline"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "posts", :force => true do |t|
     t.string   "title",      :limit => 128,        :default => "", :null => false
     t.text     "body",       :limit => 2147483647,                 :null => false
     t.integer  "timestamp",                        :default => 0,  :null => false
-    t.string   "speaker"
-    t.text     "info"
-    t.datetime "deadline"
+    t.integer  "klass_id"
+    t.datetime "author"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

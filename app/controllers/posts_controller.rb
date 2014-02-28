@@ -2,6 +2,7 @@ require "date"
 
 class PostsController < ApplicationController
   def status
+    posts 
     render :json => [
       {:title => "資種駭客鬆的第一堂課",
        :speaker => "駭客",
