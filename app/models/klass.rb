@@ -12,3 +12,4 @@ class Klass < ActiveRecord::Base
      :finished => self.posts.count}
   end
 end
+
